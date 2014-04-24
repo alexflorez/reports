@@ -1,0 +1,51 @@
+<style type="text/css">
+    table.reporte {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        padding: 2px;
+    }
+
+    table thead tr {
+        height: 50px;
+        background-color: #ffac1b;
+    }
+
+    table.reporte th:nth-child(2) {
+        text-align: left;
+    }
+
+    .late {
+        color: white;
+        background-color: red;
+    }
+</style>
+
+<table class="reporte">
+    <caption>Registro Permanente de Control de Asistencia</caption>
+    <thead>
+    <tr>
+        {% for hd in header %}
+            <th>{{ hd }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for rd in datamarks %}
+        {% set c = 0 %}
+        <tr>
+            {% for it in rd %}
+                {% if c == 2 and islate(it) %}
+                    <th class="late">{{ it }}</th>
+                {% else %}
+                    <th>{{ it }}</th>
+                {% endif %}
+                {% set c = c + 1 %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
