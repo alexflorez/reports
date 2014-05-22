@@ -7,7 +7,8 @@ class Employee():
         self.name = name
         self.marks = []
 
-    def extract_hours(self, rawmark):
+    @staticmethod
+    def extract_hours(rawmark):
         hours = []
         marks = rawmark.split(',')
 
