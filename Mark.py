@@ -13,7 +13,8 @@ class Mark():
         return self.mark - other.mark
 
 
-def check_reapeted(idxs, marks):
+def check_repeated(idxs, marks):
+    """ Check if there are multiples marks referencing to only one """
     tocorrect = {}
     for i, v in  enumerate(idxs):
         if v in tocorrect:
@@ -61,7 +62,7 @@ def test():
 
     for t in testing:
         idxs = find_indexes(t, ref_marks)
-        t = check_reapeted(idxs, t)
+        t = check_repeated(idxs, t)
         print(idxs)
         for i, rm in enumerate(ref_marks):
             if i not in idxs:
