@@ -20,11 +20,18 @@ session = Session()
 allpunches = session.query(punches).filter(punches.columns.Badge == '2079')
 
 i = 0
+# punch es KeyedTuple, tiene named labels que hacen referencia a la columna de la tabla
 for punch in allpunches:
     i += 1
-    print(i, " ", punch)
-    if i == 10:
-        break
+    print(i, " ", punch.BelongDate, punch.PunchTime)
+
+# haciendo un join entre empleado y sus marcas
+marks = session.query(employee, punches)\
+    .filter(employee.c.Badge == punches.c.Badge)\
+    .filter(employee.c.Badge == '12345678').order_by(punches.c.PunchTime)
+
+for mk in marks:
+    print(mk.Name1, mk.LastName1, mk.BelongDate, mk.PunchTime)
 
 count = session.query(punches).count()
 print(count)
