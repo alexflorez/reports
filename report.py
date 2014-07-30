@@ -1,16 +1,21 @@
 __author__ = 'Alex Florez'
 
-class TemplateReport:
+
+class Report:
     def header(self):
-        pass
+        raise NotImplementedError
 
     def content(self):
-        pass
+        raise NotImplementedError
 
     def footer(self):
-        pass
+        raise NotImplementedError
 
     def report(self):
         self.header()
         self.content()
         self.footer()
+
+
+class DailyReport(Report):
+    pass

@@ -1,5 +1,6 @@
 __author__ = 'Alex Florez'
 
+from collections import OrderedDict
 
 class Employee():
     def __init__(self, code, name):
@@ -17,15 +18,22 @@ class Employee():
             hours.append(marca)
         return hours
 
-    # Cada empleado debería tener 4 marcas como max Entrada, Almuerzo, Regreso, Salida
-    # Agregar una hora de almuerzo para los que no regitraron marcacion
-    def add_mark(self, rawmarks):
-        # rawmarks : ['Mar 01/04/2014', '08:07 IN, 13:52 OL, 15:00 IL']
+    def add_marks(self, rawmarks):
         try:
+            list_mark = []
             dia, fecha = rawmarks[0].split(' ')
             hours = self.extract_hours(rawmarks[1])
             for hora in hours:
                 marca = fecha + " " + hora
-                self.marks.append(marca)
+                list_mark.append(marca)
+
+            for mk in list_mark:
+                fecha, hora = mk.split(' ')
+                if fecha not in self.marks:
+                    self.marks[fecha] = [hora]
+                else:
+                    self.marks[fecha].append(hora)
+
+            self.marks = OrderedDict(sorted(self.marks.items()))
         except:
             return
