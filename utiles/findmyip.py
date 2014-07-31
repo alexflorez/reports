@@ -1,25 +1,23 @@
 __author__ = 'Alex Florez'
 
 from urllib import request
+import re
+
 
 def lookip(url):
     u = request.urlopen(url)
     html = u.read()
-
     # b'{"ip":"111.222.111.222","about":"/about","Pro!":"http://getjsonip.com"}'
-    # print(html) # tipo byte
-    ip = []
-    for i, b in enumerate(html):
-        if i < 7:
-            continue
-        if chr(b) == '"':
-            break
-        ip.append(chr(b))
-
-    myip = ''.join(b for b in ip)
-    return myip
+    # converting from bytes to UTF-8
+    html = html.decode('utf-8')
+    # regular expression to match an IP
+    match = re.search(r'\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}', html)
+    if match:
+        return match.group()
+    else:
+        return 'not found'
 
 if __name__ == '__main__':
-    url = 'http://jsonip.com/'
-    myip = lookip(url)
+    urldir = 'http://jsonip.com/'
+    myip = lookip(urldir)
     print(myip)
