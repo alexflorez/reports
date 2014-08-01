@@ -14,8 +14,6 @@ def lookip(url):
     match = re.search(r'\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}', html)
     if match:
         return match.group()
-    else:
-        return 'not found'
 
 if __name__ == '__main__':
     urldir = 'http://jsonip.com/'
