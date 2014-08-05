@@ -21,7 +21,8 @@ def closer_mark(ref_marks, mark):
     idx = minimum.index(min(minimum))
     return idx
 
-def check_repeated(idxs, marks):
+
+def check_repeated(marks, idxs):
     """ Check if there are multiples marks referencing to only one """
     tocorrect = {}
     for i, v in enumerate(idxs):
@@ -41,6 +42,20 @@ def find_indexes(marks, ref_mks):
         idx.append(ik)
 
     return idx
+
+
+def insert_missing(mark, idxs, ref_mks):
+    for i, rm in enumerate(ref_mks):
+        if i not in idxs:
+            mark.insert(i, rm)
+    return mark
+
+
+def fix_marks(mark, ref_marks):
+    idxs = find_indexes(mark, ref_marks)
+    mark = check_repeated(mark, idxs)
+    return insert_missing(mark, idxs, ref_marks)
+
 
 def test():
     # 07:30 a 17:00
@@ -62,17 +77,9 @@ def test():
     #ref_marks = ['05:00', '13:00']
 
     for t in testing:
-        idxs = find_indexes(t, ref_marks)
-        t = check_repeated(idxs, t)
-        #print(idxs)
-        for i, rm in enumerate(ref_marks):
-            if i not in idxs:
-                t.insert(i, rm)
+        t = fix_marks(t, ref_marks)
+        print(t)
 
 
 if __name__ == '__main__':
     test()
-    refs = ['07:00', '12:30', '13:00', '17:30']
-    mk = '12:46'
-    index = closer_mark(refs, mk)
-    print(index)
