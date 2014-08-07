@@ -55,8 +55,10 @@ class Mark():
                 self.marks.insert(i, rm)
 
     def __repr__(self):
-        return "Mark(date={}, marks={})".format(self.date, self.marks)
+        return str(self.__dict__)
 
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
 
 if __name__ == '__main__':
     # 07:30 a 17:00
