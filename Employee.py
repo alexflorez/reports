@@ -1,6 +1,6 @@
 __author__ = 'Alex Florez'
 
-from collections import OrderedDict
+from Mark import Mark
 import re
 
 
@@ -8,7 +8,7 @@ class Employee():
     def __init__(self, code, name):
         self.code = code
         self.name = name
-        self.marks = dict()
+        self.list_marks = list()    # lista de Marks
 
     @staticmethod
     def get_hours(rawmark):
@@ -29,10 +29,11 @@ class Employee():
         date = self.get_date(rawmarks[0])
         if date:
             hours = self.get_hours(rawmarks[1])
-            for h in hours:
-                if date not in self.marks:
-                    self.marks[date] = [h]
-                else:
-                    self.marks[date].append(h)
 
-            self.marks = OrderedDict(sorted(self.marks.items()))
+            mark = Mark(date, hours)
+            refs = ['08:0', '13:00', '14:00', '17:30']
+            mark.check_marks(refs)
+            self.list_marks.append(mark)
+
+    def __repr__(self):
+        return str(self.__dict__)
