@@ -2,7 +2,7 @@ __author__ = 'Alex Florez'
 
 from Styles import Styles
 from Mark import Mark
-
+from TypeReport import TypeReport
 from datetime import datetime
 from datetime import timedelta
 
@@ -10,14 +10,9 @@ import locale
 locale.setlocale(locale.LC_ALL, 'esp_per')
 
 
-class TypeReport:
-    XLS = 'xls'
-    PDF = 'pdf'
-    HTML = 'html'
-
-
 class Report:
-    def __init__(self, type):
+    def __init__(self, name, type):
+        self.type = name
         self.type = type
 
     def header(self, ws, day):
@@ -99,14 +94,3 @@ class Report:
             print("File written")
         else:
             print("Nothing to be done")
-
-
-if __name__ == '__main__':
-    from DataReader import DataReader
-    filename = "files/1-31_jul_prod.xls"
-    #filename = "files/30_julio.xls"
-    datareader = DataReader(filename)
-    data = datareader.read()
-    #print(data)
-    daily = Report(TypeReport.XLS)
-    daily.make_report(data)

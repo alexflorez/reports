@@ -3,8 +3,12 @@ __author__ = 'Alex Florez'
 from sqlalchemy import create_engine, MetaData, Table, select
 from sqlalchemy.orm import sessionmaker
 
+import locale
+
+locale.setlocale(locale.LC_ALL, 'esp_per')
+
 # pyodbc para conectarse a SQL Server
-engine = create_engine('mssql+pyodbc://user:password@localhost/dbname?charset=utf8')
+engine = create_engine('mssql+pyodbc://sa:CLight01@192.168.1.217\\CNLEHF/CNLEHFDB?charset=utf8')
 
 metadata = MetaData(bind=engine)
 
